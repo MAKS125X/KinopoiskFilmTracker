@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.MainActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/appToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:menu="@menu/menu_toolbar" />
+
+    <TextView
+        android:id="@+id/sectionNameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="@string/app_name"
+        android:textColor="?android:attr/textColorPrimary"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/appToolbar"
+        app:layout_constraintStart_toStartOf="@+id/appToolbar"
+        app:layout_constraintTop_toTopOf="@+id/appToolbar" />
+
+    <fragment
+        android:id="@+id/nav_host"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/popularButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appToolbar"
+        app:navGraph = "@navigation/nav_graph"
+        app:defaultNavHost = "true"
+        />
+
+    <Button
+        android:id="@+id/popularButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="Популярные"
+        android:background="@drawable/button_background"
+        android:textColor="?android:attr/textColorPrimaryInverse"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/favouritesButton"
+        />
+
+    <Button
+        android:id="@+id/favouritesButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="Избранное"
+        android:background="@drawable/button_background"
+        android:textColor="?android:attr/textColorPrimaryInverse"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/popularButton"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
