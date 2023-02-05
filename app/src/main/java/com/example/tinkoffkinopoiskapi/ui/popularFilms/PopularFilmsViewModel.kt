@@ -18,16 +18,19 @@ class PopularFilmsViewModel : ViewModel() {
 
     init {
         viewModelScope.launch {
-            _status.value = FilmApiStatus.LOADING
-            try {
-                filmList.value = repository.getPopularFilms().body()?.films
-                _status.value = FilmApiStatus.DONE
-            }
-            catch (e: Exception) {
-                _status.value = FilmApiStatus.ERROR
-                filmList.value = mutableListOf()
-            }
+            startLoading()
+        }
+    }
 
+    suspend fun startLoading(){
+        _status.value = FilmApiStatus.LOADING
+        try {
+            filmList.value = repository.getPopularFilms().body()?.films
+            _status.value = FilmApiStatus.DONE
+        }
+        catch (e: Exception) {
+            _status.value = FilmApiStatus.ERROR
+            filmList.value = mutableListOf()
         }
     }
 }

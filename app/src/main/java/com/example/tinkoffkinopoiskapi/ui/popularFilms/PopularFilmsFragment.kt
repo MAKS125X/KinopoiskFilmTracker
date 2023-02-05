@@ -6,12 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.tinkoffkinopoiskapi.R
 import com.example.tinkoffkinopoiskapi.data.api.FilmApiStatus
 import com.example.tinkoffkinopoiskapi.databinding.FragmentPopularFilmsBinding
 import com.example.tinkoffkinopoiskapi.model.Film
+import kotlinx.coroutines.launch
 
 //import com.example.tinkoffkinopoiskapi.popularFilms.PopularFilmsFragmentDirections
 
@@ -23,7 +25,11 @@ class PopularFilmsFragment : Fragment() {
     private val vm: PopularFilmsViewModel by viewModels()
 
     private fun initClicks() = with(binding) {
-
+        refreshButton.setOnClickListener {
+            vm.viewModelScope.launch {
+                vm.startLoading()
+            }
+        }
     }
 
     private fun initObservers() {
@@ -37,16 +43,20 @@ class PopularFilmsFragment : Fragment() {
                 FilmApiStatus.LOADING -> {
                     binding.networkStatusImageView.visibility = View.VISIBLE
                     binding.networkStatusImageView.setImageResource(R.drawable.animation_loading)
+                    binding.refreshButton.visibility = View.VISIBLE
                 }
                 FilmApiStatus.ERROR -> {
                     binding.networkStatusImageView.visibility = View.VISIBLE
+                    binding.refreshButton.visibility = View.VISIBLE
                     binding.networkStatusImageView.setImageResource(R.drawable.baseline_cloud_off_24)
                 }
                 FilmApiStatus.DONE -> {
                     binding.networkStatusImageView.visibility = View.GONE
+                    binding.refreshButton.visibility = View.GONE
                 }
                 else -> {
                     binding.networkStatusImageView.visibility = View.VISIBLE
+                    binding.refreshButton.visibility = View.VISIBLE
                     binding.networkStatusImageView.setImageResource(R.drawable.baseline_wifi_off_24)
                 }
             }
@@ -67,6 +77,7 @@ class PopularFilmsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initObservers()
         initRecyclerView()
+        initClicks()
     }
 
     private fun initRecyclerView() = with(binding) {
