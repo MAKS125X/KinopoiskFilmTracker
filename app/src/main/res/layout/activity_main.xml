@@ -10,11 +10,10 @@
         android:id="@+id/appToolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:menu="@menu/menu_toolbar" />
+        />
 
     <TextView
         android:id="@+id/sectionNameTextView"
@@ -23,7 +22,8 @@
         android:layout_marginStart="16dp"
         android:fontFamily="sans-serif-medium"
         android:text="Популярные"
-        android:textColor="?android:attr/textColorPrimary"
+        android:textStyle="bold"
+        android:textColor="?attr/colorTextHeaders"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="@+id/appToolbar"
         app:layout_constraintStart_toStartOf="@+id/appToolbar"

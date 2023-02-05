@@ -3,12 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/scroll"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         tools:context=".ui.filmInfo.FilmInfoFragment">
 
         <ImageView
@@ -29,7 +29,9 @@
             android:layout_marginHorizontal="32dp"
             android:layout_marginTop="12dp"
             android:text="Название фильма"
-            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:textSize="24sp"
+            android:textColor="?attr/colorTextHeaders"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/filmPhotoImageView" />
@@ -55,7 +57,7 @@
             android:layout_marginEnd="32dp"
             android:breakStrategy="simple"
             android:fontFamily="sans-serif-medium"
-            android:text="Жанры: фантастика, приключения, боевик, фэнтези"
+            android:text="Жанры: "
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/filmDescriptionTextView" />
@@ -67,11 +69,13 @@
             android:layout_marginStart="32dp"
             android:layout_marginTop="12dp"
             android:layout_marginEnd="32dp"
+            android:layout_marginBottom="12dp"
             android:fontFamily="sans-serif-medium"
             android:text="Страны:"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/filmGenresTextView" />
+            app:layout_constraintTop_toBottomOf="@+id/filmGenresTextView"
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
 
         <LinearLayout
@@ -87,17 +91,21 @@
 
             <ImageView
                 android:id="@+id/networkStatusImageView"
+                android:layout_margin="16dp"
+                android:layout_marginTop="32dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
             <TextView
                 android:id="@+id/lostConnectionTextView"
+                android:layout_margin="16dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Произошла ошибка при загрузке данных,\nпроверьте подключение к сети" />
 
             <Button
                 android:id="@+id/refreshButton"
+                android:layout_margin="16dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/button_background"

@@ -32,18 +32,21 @@
         <ImageView
             android:id="@+id/networkStatusImageView"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp" />
 
         <TextView
             android:id="@+id/lostConnectionTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="16dp"
             android:text="Произошла ошибка при загрузке данных,\nпроверьте подключение к сети" />
 
         <Button
             android:id="@+id/refreshButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="16dp"
             android:background="@drawable/button_background"
             android:text="Повторить" />
     </LinearLayout>
