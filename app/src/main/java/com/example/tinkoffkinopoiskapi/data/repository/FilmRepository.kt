@@ -1,6 +1,5 @@
 package com.example.tinkoffkinopoiskapi.data.repository
 
-import android.util.Log
 import com.example.tinkoffkinopoiskapi.data.api.RetrofitInstance
 import com.example.tinkoffkinopoiskapi.model.Film
 import com.example.tinkoffkinopoiskapi.model.FilmsCollection

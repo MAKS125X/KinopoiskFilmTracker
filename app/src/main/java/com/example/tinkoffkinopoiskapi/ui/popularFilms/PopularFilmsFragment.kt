@@ -15,8 +15,6 @@ import com.example.tinkoffkinopoiskapi.databinding.FragmentPopularFilmsBinding
 import com.example.tinkoffkinopoiskapi.model.Film
 import kotlinx.coroutines.launch
 
-//import com.example.tinkoffkinopoiskapi.popularFilms.PopularFilmsFragmentDirections
-
 class PopularFilmsFragment : Fragment() {
 
     private lateinit var binding: FragmentPopularFilmsBinding
