@@ -41,22 +41,28 @@ class PopularFilmsFragment : Fragment() {
         vm.status.observe(viewLifecycleOwner) { status ->
             when (status) {
                 FilmApiStatus.LOADING -> {
+                    binding.lostConnectionLayout.visibility = View.VISIBLE
+                    binding.refreshButton.visibility = View.GONE
+                    binding.lostConnectionTextView.visibility = View.GONE
                     binding.networkStatusImageView.visibility = View.VISIBLE
                     binding.networkStatusImageView.setImageResource(R.drawable.animation_loading)
-                    binding.refreshButton.visibility = View.VISIBLE
+
                 }
                 FilmApiStatus.ERROR -> {
+                    binding.lostConnectionLayout.visibility = View.VISIBLE
                     binding.networkStatusImageView.visibility = View.VISIBLE
                     binding.refreshButton.visibility = View.VISIBLE
+                    binding.lostConnectionTextView.visibility = View.VISIBLE
                     binding.networkStatusImageView.setImageResource(R.drawable.baseline_cloud_off_24)
                 }
                 FilmApiStatus.DONE -> {
-                    binding.networkStatusImageView.visibility = View.GONE
-                    binding.refreshButton.visibility = View.GONE
+                    binding.lostConnectionLayout.visibility = View.GONE
                 }
                 else -> {
+                    binding.lostConnectionLayout.visibility = View.VISIBLE
                     binding.networkStatusImageView.visibility = View.VISIBLE
                     binding.refreshButton.visibility = View.VISIBLE
+                    binding.lostConnectionTextView.visibility = View.VISIBLE
                     binding.networkStatusImageView.setImageResource(R.drawable.baseline_wifi_off_24)
                 }
             }

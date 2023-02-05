@@ -8,12 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.net.toUri
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.navArgs
 import coil.load
 import com.example.tinkoffkinopoiskapi.R
+import com.example.tinkoffkinopoiskapi.data.api.FilmApiStatus
 import com.example.tinkoffkinopoiskapi.databinding.FragmentFilmInfoBinding
-
-//import com.example.tinkoffkinopoiskapi.filmInfo.FilmInfoFragmentArgs
+import kotlinx.coroutines.launch
 
 class FilmInfoFragment : Fragment() {
 
@@ -37,12 +38,65 @@ class FilmInfoFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initObservers()
-        binding.filmNameTextView.text = filmInfoViewModel.name.value
-        Log.d("Отладка", filmInfoViewModel.name.value.toString())
+        initClicks()
+        //binding.filmNameTextView.text = filmInfoViewModel.name.value
+    }
+
+    private fun setElementsVisible(isVisible: Boolean) {
+        when (isVisible) {
+            true -> {
+                binding.filmGenresTextView.visibility = View.VISIBLE
+                binding.filmPhotoImageView.visibility = View.VISIBLE
+                binding.filmCountriesTextView.visibility = View.VISIBLE
+                binding.filmDescriptionTextView.visibility = View.VISIBLE
+                binding.filmNameTextView.visibility = View.VISIBLE
+            }
+            false -> {
+                binding.filmGenresTextView.visibility = View.GONE
+                binding.filmPhotoImageView.visibility = View.GONE
+                binding.filmCountriesTextView.visibility = View.GONE
+                binding.filmDescriptionTextView.visibility = View.GONE
+                binding.filmNameTextView.visibility = View.GONE
+            }
+        }
 
     }
 
     private fun initObservers() {
+        filmInfoViewModel.status.observe(viewLifecycleOwner) { status ->
+            when (status) {
+                FilmApiStatus.LOADING -> {
+                    setElementsVisible(false)
+                    binding.lostConnectionLayout.visibility = View.VISIBLE
+                    binding.refreshButton.visibility = View.GONE
+                    binding.lostConnectionTextView.visibility = View.GONE
+                    binding.networkStatusImageView.visibility = View.VISIBLE
+                    binding.networkStatusImageView.setImageResource(R.drawable.animation_loading)
+
+                }
+                FilmApiStatus.ERROR -> {
+                    setElementsVisible(false)
+                    binding.lostConnectionLayout.visibility = View.VISIBLE
+                    binding.networkStatusImageView.visibility = View.VISIBLE
+                    binding.refreshButton.visibility = View.VISIBLE
+                    binding.lostConnectionTextView.visibility = View.VISIBLE
+                    binding.networkStatusImageView.setImageResource(R.drawable.baseline_cloud_off_24)
+                }
+                FilmApiStatus.DONE -> {
+                    setElementsVisible(true)
+                    binding.lostConnectionLayout.visibility = View.GONE
+                }
+                else -> {
+                    setElementsVisible(false)
+                    binding.lostConnectionLayout.visibility = View.VISIBLE
+                    binding.networkStatusImageView.visibility = View.VISIBLE
+                    binding.refreshButton.visibility = View.VISIBLE
+                    binding.lostConnectionTextView.visibility = View.VISIBLE
+                    binding.networkStatusImageView.setImageResource(R.drawable.baseline_wifi_off_24)
+                }
+            }
+        }
+
         filmInfoViewModel.name.observe(viewLifecycleOwner) {
             binding.filmNameTextView.text = filmInfoViewModel.name.value
         }
@@ -68,6 +122,14 @@ class FilmInfoFragment : Fragment() {
                     placeholder(R.drawable.animation_loading)
                     error(R.drawable.baseline_wifi_off_24)
                 }
+            }
+        }
+    }
+
+    private fun initClicks() {
+        binding.refreshButton.setOnClickListener {
+            filmInfoViewModel.viewModelScope.launch {
+                filmInfoViewModel.startLoading()
             }
         }
     }
